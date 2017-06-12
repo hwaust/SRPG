@@ -24,6 +24,32 @@ namespace SRPG.Debuffs
 			From = p1;
 			To = p2;
 		}
+
+		public virtual Message initialize()
+		{
+			return null;
+		}
+
+
+
+		public virtual Message applyBeforeAttack(Unit target)
+		{
+			return null;
+		}
+
+		public virtual Message applyAfterAttack(Unit target)
+		{
+			return null;
+		}
+
+		public virtual Message applyWhenTurnOver(Unit target)
+		{
+			return null;
+		}
+
+
+
+
 		public virtual void Apply() { }
 
 		public bool Expired()

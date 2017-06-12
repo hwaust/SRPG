@@ -19,6 +19,7 @@ namespace SRPG
         /// Level 
         /// </summary>
 		public int Level { get; set; }
+
         public int MaxLevel { get; set; }
 
         /// <summary>

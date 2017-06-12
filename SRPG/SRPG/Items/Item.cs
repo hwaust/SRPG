@@ -8,7 +8,7 @@ namespace SRPG.Items
 {
     public class Item
     {
-        public virtual string Use(Person player)
+        public virtual string Use(Unit player)
         {
             player.HP += 2;
             return null;

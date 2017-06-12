@@ -9,7 +9,7 @@ namespace SRPG.Effects.Buffs
 {
 	class HPRecover : Debuff
 	{
-		public HPRecover(Person sender, Person target)
+		public HPRecover(Unit sender, Unit target)
 		{
 			From = sender;
 			To = target;

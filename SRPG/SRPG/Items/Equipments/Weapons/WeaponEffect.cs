@@ -2,7 +2,7 @@
 {
     public class WeaponEffect
     {
-        public Person User { get; set; }
+        public Unit User { get; set; }
 
         public void Apply()
         {

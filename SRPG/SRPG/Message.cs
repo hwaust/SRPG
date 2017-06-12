@@ -8,12 +8,12 @@ namespace SRPG
 {
    public class Message
     {
-        public Person From { get; set; }
-        public Person To { get; set; }
+        public Unit From { get; set; }
+        public Unit To { get; set; }
         public string Information { get; set; }
 
         public Message() { }
-        public Message(Person from, Person to, string msg)
+        public Message(Unit from, Unit to, string msg)
         {
             From = from;
             To = to;

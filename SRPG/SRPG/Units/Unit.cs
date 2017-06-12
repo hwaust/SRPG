@@ -8,7 +8,7 @@ using SRPG.Items;
 
 namespace SRPG
 {
-    public class Person
+    public class Unit
     {
         /// <summary>
         /// Name of the player.
@@ -70,7 +70,7 @@ namespace SRPG
         public List<Item> Equipments { get; set; }
 
 
-        public Person()
+        public Unit()
         {
             CriticalDamage = 1.00; // 100%
             Equipments = new List<Item>();
@@ -86,7 +86,7 @@ namespace SRPG
 
         }
 
-        public String Attack(Person p)
+        public String Attack(Unit p)
         {
             if (common.TestOdd(p.HitRate))
             {

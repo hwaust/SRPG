@@ -15,8 +15,8 @@ namespace SRPG
 		{
 			List<Debuff> dbf = new List<Debuff>();
 
-			Person tom = UnitFactory.MakePalyer(PlayerType.Standard);
-			Person jack = UnitFactory.MakePalyer(PlayerType.Standard);
+			Unit tom = UnitFactory.MakePalyer(PlayerType.Standard);
+			Unit jack = UnitFactory.MakePalyer(PlayerType.Standard);
 
 
 			tom.Name = "Tom";
@@ -53,13 +53,13 @@ namespace SRPG
 			}
 		}
 
-        private static void Equit(Person tom, Weapon wp)
+        private static void Equit(Unit tom, Weapon wp)
         {
             tom.Equip(wp);
             wp.EquipTo(tom);
         }
 
-        private static void Attack(Person p1, Person p2)
+        private static void Attack(Unit p1, Unit p2)
 		{
 			if (p1.HP == 0)
 				return;
@@ -70,14 +70,14 @@ namespace SRPG
 		}
 
 
-		private static void showMessage(Person p1, Person p2, string message)
+		private static void showMessage(Unit p1, Unit p2, string message)
 		{
             message = message.Replace("#from#", p1.Name);
             message = message.Replace("#to#", p2.Name);
             Console.WriteLine(message);
         }
 
-		private static void Show(Person p1, Person p2)
+		private static void Show(Unit p1, Unit p2)
 		{
 			Console.WriteLine("{0}: HP={1}; {2}: HP = {3}.", p1.Name, p1.HP, p2.Name, p2.HP);
 		}

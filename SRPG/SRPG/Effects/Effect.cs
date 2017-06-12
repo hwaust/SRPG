@@ -10,16 +10,16 @@ namespace SRPG.Debuffs
 	{
 		public int AffectedRounds { get; set; }
 
-		public Person From { get; set; }
+		public Unit From { get; set; }
 
-		public Person To { get; set; }
+		public Unit To { get; set; }
 
 		public Debuff()
 		{
 
 		}
 
-		public Debuff(Person p1, Person p2)
+		public Debuff(Unit p1, Unit p2)
 		{
 			From = p1;
 			To = p2;

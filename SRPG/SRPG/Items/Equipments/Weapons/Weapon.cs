@@ -16,22 +16,22 @@ namespace SRPG.Items.Weapons
 
         public int Range { get; set; }
 
-        public Person Owner { get; set; }
+        public Unit Owner { get; set; }
 
-        public void EquipTo(Person player)
+        public void EquipTo(Unit player)
         {
             Owner = player;
             player.Strength += 2;
         }
 
-        public void Dequip(Person player)
+        public void Dequip(Unit player)
         {
 
         }
 
         List<WeaponEffect> effects = new List<WeaponEffect>();
 
-        public string Apply(Person p2)
+        public string Apply(Unit p2)
         {
             return "";
         }

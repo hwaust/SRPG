@@ -9,14 +9,14 @@ namespace SRPG
 {
 	class UnitFactory
 	{
-		public  static Person MakePalyer(PlayerType type)
+		public  static Unit MakePalyer(PlayerType type)
 		{
-			Person p = new Person();
+			Unit p = new Unit();
 
 			switch (type)
 			{
 				case PlayerType.Standard:
-                    p = new Person()
+                    p = new Unit()
                     {
                         MaxHP = 100,
                         HP = 100,

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SRPG.Items.Weapons
 {
-    class Sword:Weapon
+    class Sword: Weapon
     {
 
     }

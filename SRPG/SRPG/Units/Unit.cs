@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SRPG.Items.Weapons;
 using SRPG.Items;
+using SRPG.Items.Equipments;
+using SRPG.Debuffs;
 
 namespace SRPG
 {
@@ -59,22 +61,26 @@ namespace SRPG
 
         public double ParryRate { get; set; }
 
-
         public int Movement { get; set; }
 
 
-        public Item Weapon { get; set; }
+        
+        public Equipment Weapon { get; set; }
+
 
         public Item Armor { get; set; }
 
 
-        public List<Item> Equipments { get; set; }
+        public List<Equipment> Accessories { get; set; }
 
+
+
+        public List<Effect> Effects = new List<Effect>();
 
         public Unit()
         {
             CriticalDamage = 1.00; // 100%
-            Equipments = new List<Item>();
+            Accessories = new List<Equipment>();
         }
 
         public int GetDamage()
@@ -87,30 +93,39 @@ namespace SRPG
 
         }
 
-        public String Attack(Unit p)
+        public Message Attack(Unit target)
         {
-            if (common.TestOdd(p.HitRate))
+            Message msg = new Message(this, target, null);
+
+            if(this.HP == 0)
+                return msg;
+            
+
+            // Hit Rate test.
+            if (common.TestOdd(target.HitRate))
             {
-                return "missed";
+                msg.Information = "#from# missed.";
+                return msg;
             }
 
-            // Computer dodge.
-            if (common.GetOdd() <= p.ParryRate)
+            // Parray Rate test.
+            if (common.TestOdd(target.ParryRate))
+                return new Message(this, target, "#to# Dodged.");
+
+
+            int damage = this.GetDamage() - target.Defense;
+            msg.Information = "#from# hit #to#, caused " + damage + " damage.";
+
+
+            // Critial Hit test.
+            if (common.TestOdd(target.CriticalRate))
             {
-                return "#to# Dodged.";
+                damage *= (int)(1 + target.CriticalDamage);
+                msg.Information = "#from# critical hit #to#, caused " + damage + " damage.";
             }
 
-  
+            target.HP -= damage;
 
-            int damage = this.GetDamage() - p.Defense;
-            string msg = "#from# hit #to#, caused " + damage + " damage"; 
-            if (common.TestOdd(p.CriticalRate))
-            {
-                damage *= (int)(1 + p.CriticalDamage);
-                msg += " cricial strike";
-            }
-
-            p.HP -= damage;
             return msg;
         }
 

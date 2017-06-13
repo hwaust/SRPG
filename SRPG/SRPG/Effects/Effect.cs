@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SRPG.Debuffs
 {
-	public class Debuff
+	public class Effect
 	{
 		public int AffectedRounds { get; set; }
 
@@ -14,12 +14,12 @@ namespace SRPG.Debuffs
 
 		public Unit To { get; set; }
 
-		public Debuff()
+		public Effect()
 		{
 
 		}
 
-		public Debuff(Unit p1, Unit p2)
+		public Effect(Unit p1, Unit p2)
 		{
 			From = p1;
 			To = p2;
@@ -50,7 +50,7 @@ namespace SRPG.Debuffs
 
 
 
-		public virtual void Apply() { }
+		public virtual Message Apply() { return new Message(); }
 
 		public bool Expired()
 		{

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRPG.Effects.Buffs
 {
-	class HPRecover : Debuff
+	class HPRecover : Effect
 	{
 		public HPRecover(Unit sender, Unit target)
 		{
@@ -17,12 +17,16 @@ namespace SRPG.Effects.Buffs
 		}
 		 
 
-		public override void Apply()
+		public override Message Apply()
 		{
 			To.HP += 2;
 			AffectedRounds -= 1;
 
-            Console.WriteLine(To.Name + "was healed by 2 HP");
-		}
+            Message msg = new Message(From, To, "");
+
+            Console.WriteLine(To.Name + " was healed by 2 HP");
+
+            return new Message(From, To, "#to# was healed by 2 HP");
+        }
 	}
 }

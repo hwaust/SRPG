@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 namespace SRPG
 {
    public class Message
-    {
+    { 
         public Unit From { get; set; }
+
         public Unit To { get; set; }
+
         public string Information { get; set; }
 
         public Message() { }
+
         public Message(Unit from, Unit to, string msg)
         {
             From = from;
@@ -20,10 +23,20 @@ namespace SRPG
             Information = msg;
         }
 
+        public Message(string msg)
+        {
+            Information = msg;
+        }
 
         public void Show()
         {
+            if (Information == null)
+                return;
 
+            string message = Information;
+            message = message.Replace("#from#", From.Name);
+            message = message.Replace("#to#", To.Name);
+            Console.WriteLine(message);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SRPG.Debuffs;
+﻿using SRPG.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SRPG.Items.Weapons;
 using SRPG.Items;
 using SRPG.Items.Equipments;
-using SRPG.Debuffs;
+using SRPG.Effects;
 
 namespace SRPG
 {
@@ -64,14 +64,9 @@ namespace SRPG
         public int Movement { get; set; }
 
 
+ 
 
-        public Equipment Weapon { get; set; }
-
-
-        public Item Armor { get; set; }
-
-
-        public List<Equipment> Accessories { get; set; }
+        public Equipment[] Accessories { get; set; }
 
 
 
@@ -80,7 +75,7 @@ namespace SRPG
         public Unit()
         {
             CriticalDamage = 1.00; // 100%
-            Accessories = new List<Equipment>();
+            Accessories = new Equipment[6];
         }
 
         public int GetDamage()
@@ -95,45 +90,58 @@ namespace SRPG
 
         public BattleRecord Attack(Unit target)
         {
-            BattleRecord msg = new BattleRecord(this, target, null);
+            BattleRecord record = new BattleRecord(this, target, null);
 
             if (this.HP == 0)
-                return msg;
+                return record;
 
+            foreach (Effect effect in Effects)
+                if (effect.stopAttach(record))
+                    return new BattleRecord(this, target, "");
+
+
+            foreach (Effect effect in Effects)
+                effect.applyBeforeAttack(record); 
 
             // Hit Rate test.
             if (common.TestOdd(target.HitRate))
             {
-                msg.Information = "#from# missed.";
-                return msg;
-            }
-
+                record.Information = "#from# missed.";
+            } 
             // Parray Rate test.
-            if (common.TestOdd(target.ParryRate))
-                return new BattleRecord(this, target, "#to# Dodged.");
-
-
-            msg.Damage = this.GetDamage() - target.Defense;
-            msg.Information = "#from# hit #to#, caused #damage# damage.";
-
-
-            // Critial Hit test.
-            if (common.TestOdd(target.CriticalRate))
+            else if (common.TestOdd(target.ParryRate))
             {
-                msg.Damage *= (int)(1 + target.CriticalDamage);
-                msg.Information = "#from# critical hit #to#, caused #damage# damage.";
+                return new BattleRecord(this, target, "#to# Dodged.");
+            }
+            else
+            {
+
+                // Basic damage.
+                record.Damage = this.GetDamage() - target.Defense;
+
+                // Critial Hit test.
+                if (common.TestOdd(target.CriticalRate))
+                {
+                    record.Damage *= (int)(1 + target.CriticalDamage);
+                    record.Information = "#from# critical hit #to#, caused #damage# damage.";
+                }
+                else
+                {
+                    record.Information = "#from# hit #to#, caused #damage# damage.";
+                }
+
+                // Reduce HP.
+                target.HP -= record.Damage;
+
+
             }
 
-
-            target.HP -= msg.Damage;
 
             foreach (Effect effect in Effects)
-            {
-                effect.applyAfterAttack(msg);
-            }
+                effect.applyAfterAttack(record);
 
 
-            return msg;
+            return record;
         }
 
         public void Show()
@@ -141,10 +149,10 @@ namespace SRPG
             Console.WriteLine("HP: " + HP);
         }
 
-        public void Equip(Weapon wp)
+        public void Equip(Equipment equip, int pos)
         {
-            //wp.EquipTo(this);
-            //Equipments.Add(wp);
+            Accessories[pos] = equip;
+            
         }
 
 

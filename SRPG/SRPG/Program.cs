@@ -1,4 +1,4 @@
-﻿using SRPG.Debuffs;
+﻿using SRPG.Effects;
 using SRPG.Effects.Buffs;
 using SRPG.Items.Weapons;
 using System;
@@ -21,8 +21,9 @@ namespace SRPG
 
             tom.Name = "Tom";
             tom.Strength += 1;
-            tom.Weapon = new Sword();
-            dbf.Add(new HPRecover(tom, tom));
+            tom.Equip(new Sword(), 0);
+
+            tom.Effects.Add(new HPRecover(tom, tom));
 
             jack.Name = "Jack";
             jack.ParryRate = 0.55;
@@ -54,25 +55,8 @@ namespace SRPG
             }
         }
 
-        private static void Equit(Unit tom, Weapon wp)
-        {
-            tom.Equip(wp);
-            wp.EquipTo(tom);
-        }
-
-        private static void Attack(Unit p1, Unit p2)
-        {
-            if (p1.HP > 0)
-                p1.Attack(p2).Show();
-        }
 
 
-        private static void showMessage(Unit p1, Unit p2, string message)
-        {
-            message = message.Replace("#from#", p1.Name);
-            message = message.Replace("#to#", p2.Name);
-            Console.WriteLine(message);
-        }
 
         private static void Show(Unit p1, Unit p2)
         {

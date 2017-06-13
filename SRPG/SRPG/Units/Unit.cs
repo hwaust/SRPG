@@ -64,7 +64,7 @@ namespace SRPG
         public int Movement { get; set; }
 
 
-        
+
         public Equipment Weapon { get; set; }
 
 
@@ -93,13 +93,13 @@ namespace SRPG
 
         }
 
-        public Message Attack(Unit target)
+        public BattleRecord Attack(Unit target)
         {
-            Message msg = new Message(this, target, null);
+            BattleRecord msg = new BattleRecord(this, target, null);
 
-            if(this.HP == 0)
+            if (this.HP == 0)
                 return msg;
-            
+
 
             // Hit Rate test.
             if (common.TestOdd(target.HitRate))
@@ -110,21 +110,28 @@ namespace SRPG
 
             // Parray Rate test.
             if (common.TestOdd(target.ParryRate))
-                return new Message(this, target, "#to# Dodged.");
+                return new BattleRecord(this, target, "#to# Dodged.");
 
 
-            int damage = this.GetDamage() - target.Defense;
-            msg.Information = "#from# hit #to#, caused " + damage + " damage.";
+            msg.Damage = this.GetDamage() - target.Defense;
+            msg.Information = "#from# hit #to#, caused #damage# damage.";
 
 
             // Critial Hit test.
             if (common.TestOdd(target.CriticalRate))
             {
-                damage *= (int)(1 + target.CriticalDamage);
-                msg.Information = "#from# critical hit #to#, caused " + damage + " damage.";
+                msg.Damage *= (int)(1 + target.CriticalDamage);
+                msg.Information = "#from# critical hit #to#, caused #damage# damage.";
             }
 
-            target.HP -= damage;
+
+            target.HP -= msg.Damage;
+
+            foreach (Effect effect in Effects)
+            {
+                effect.applyAfterAttack(msg);
+            }
+
 
             return msg;
         }
@@ -138,6 +145,16 @@ namespace SRPG
         {
             //wp.EquipTo(this);
             //Equipments.Add(wp);
+        }
+
+
+        public bool Immune()
+        {
+            foreach (Effect ef in Effects)
+            {
+
+            }
+            return false;
         }
     }
 }

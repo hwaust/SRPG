@@ -52,7 +52,7 @@
     <Compile Include="Items\Equipments\Weapons\Sword.cs" />
     <Compile Include="Items\Equipments\Weapons\Weapon.cs" />
     <Compile Include="Items\Equipments\Weapons\WeaponFactory.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="BattleRecord.cs" />
     <Compile Include="Units\Unit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

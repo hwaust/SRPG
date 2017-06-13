@@ -25,24 +25,24 @@ namespace SRPG.Debuffs
 			To = p2;
 		}
 
-		public virtual Message initialize()
+		public virtual BattleRecord initialize(BattleRecord message)
 		{
 			return null;
 		}
 
 
 
-		public virtual Message applyBeforeAttack(Unit target)
+		public virtual BattleRecord applyBeforeAttack(BattleRecord target)
 		{
 			return null;
 		}
 
-		public virtual Message applyAfterAttack(Unit target)
+		public virtual BattleRecord applyAfterAttack(BattleRecord target)
 		{
 			return null;
 		}
 
-		public virtual Message applyWhenTurnOver(Unit target)
+		public virtual BattleRecord applyWhenTurnOver(BattleRecord target)
 		{
 			return null;
 		}
@@ -50,7 +50,7 @@ namespace SRPG.Debuffs
 
 
 
-		public virtual Message Apply() { return new Message(); }
+		public virtual BattleRecord Apply() { return new BattleRecord(); }
 
 		public bool Expired()
 		{

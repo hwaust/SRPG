@@ -17,16 +17,16 @@ namespace SRPG.Effects.Buffs
 		}
 		 
 
-		public override Message Apply()
+		public override BattleRecord Apply()
 		{
 			To.HP += 2;
 			AffectedRounds -= 1;
 
-            Message msg = new Message(From, To, "");
+            BattleRecord msg = new BattleRecord(From, To, "");
 
             Console.WriteLine(To.Name + " was healed by 2 HP");
 
-            return new Message(From, To, "#to# was healed by 2 HP");
+            return new BattleRecord(From, To, "#to# was healed by 2 HP");
         }
 	}
 }

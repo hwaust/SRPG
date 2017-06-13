@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SRPG
 {
-   public class Message
+   public class BattleRecord
     { 
         public Unit From { get; set; }
 
@@ -14,19 +14,23 @@ namespace SRPG
 
         public string Information { get; set; }
 
-        public Message() { }
+        public int Damage { get; set; }
 
-        public Message(Unit from, Unit to, string msg)
+        public BattleRecord() { }
+
+        public BattleRecord(Unit from, Unit to, string msg)
         {
             From = from;
             To = to;
             Information = msg;
         }
 
-        public Message(string msg)
+        public BattleRecord(string msg)
         {
             Information = msg;
         }
+
+
 
         public void Show()
         {
@@ -36,6 +40,7 @@ namespace SRPG
             string message = Information;
             message = message.Replace("#from#", From.Name);
             message = message.Replace("#to#", To.Name);
+            message = message.Replace("#damage#", Damage.ToString());
             Console.WriteLine(message);
         }
     }

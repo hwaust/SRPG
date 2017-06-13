@@ -8,6 +8,8 @@ namespace SRPG
 {
 	public class common
 	{
+		public List<BattleRecord> records = new List<BattleRecord>();
+
 		static Random rnd = new Random();
 		public static double GetOdd()
 		{

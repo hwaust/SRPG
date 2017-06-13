@@ -44,13 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.cs" />
+    <Compile Include="Effects\Buffs\AttackHPIncrease.cs" />
+    <Compile Include="Effects\Buffs\AttackSucker.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\Buffs\HPRecover.cs" />
     <Compile Include="Items\Equipments\Equipment.cs" />
+    <Compile Include="Items\Equipments\Weapons\BlookSword.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\Equipments\Weapons\WeaponEffect.cs" />
     <Compile Include="Items\Equipments\Weapons\Sword.cs" />
-    <Compile Include="Items\Equipments\Weapons\Weapon.cs" />
     <Compile Include="Items\Equipments\Weapons\WeaponFactory.cs" />
     <Compile Include="BattleRecord.cs" />
     <Compile Include="Units\Unit.cs" />

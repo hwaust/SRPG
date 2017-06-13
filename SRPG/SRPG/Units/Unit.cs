@@ -40,7 +40,9 @@ namespace SRPG
             get { return _hp; }
             set
             {
-                _hp = value < 0 ? 0 : value;
+				_hp = value;
+				_hp = _hp > MaxHP ? MaxHP : _hp;
+				_hp = _hp < 0 ? 0 : _hp;
             }
         }
 
@@ -57,7 +59,17 @@ namespace SRPG
 
         public double CriticalDamage { get; set; }
 
-        public double HitRate { get; set; }
+		public void UpdateEffects()
+		{
+			for (int i = Effects.Count - 1; i >= 0; i--)
+			{
+				Effects[i].applyWhenTurnOver().Show();
+				if (Effects[i].Expired())
+					Effects.RemoveAt(i);
+			}
+		}
+
+		public double HitRate { get; set; }
 
         public double ParryRate { get; set; }
 
@@ -104,7 +116,7 @@ namespace SRPG
                 effect.applyBeforeAttack(record); 
 
             // Hit Rate test.
-            if (common.TestOdd(target.HitRate))
+            if (!common.TestOdd(target.HitRate))
             {
                 record.Information = "#from# missed.";
             } 
@@ -118,6 +130,7 @@ namespace SRPG
 
                 // Basic damage.
                 record.Damage = this.GetDamage() - target.Defense;
+				record.Damage = record.Damage < 0 ? 0 : record.Damage;
 
                 // Critial Hit test.
                 if (common.TestOdd(target.CriticalRate))
@@ -152,7 +165,7 @@ namespace SRPG
         public void Equip(Equipment equip, int pos)
         {
             Accessories[pos] = equip;
-            
+			equip.Puton();
         }
 
 

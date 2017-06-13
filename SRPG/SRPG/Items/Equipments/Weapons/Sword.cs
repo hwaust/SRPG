@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRPG.Items.Weapons
+namespace SRPG.Items.Equipments.Weapons
 {
-    class Sword: Weapon
+    public class Sword: Equipment
     {
 
     }

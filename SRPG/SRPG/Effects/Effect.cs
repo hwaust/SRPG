@@ -8,21 +8,22 @@ namespace SRPG.Effects
 {
     public class Effect
     {
+		
         public int AffectedRounds { get; set; }
 
-        public Unit From { get; set; }
+        public Unit Owner { get; set; }
 
-        public Unit To { get; set; }
+        public Unit Target { get; set; }
 
         public Effect()
         {
 
         }
 
-        public Effect(Unit p1, Unit p2)
+        public Effect(Unit owner, Unit target)
         {
-            From = p1;
-            To = p2;
+            Owner = owner;
+            Target = target;
         }
 
         public virtual BattleRecord initialize(BattleRecord record)
@@ -41,9 +42,9 @@ namespace SRPG.Effects
             return record;
         }
 
-        public virtual BattleRecord applyWhenTurnOver(BattleRecord record)
+        public virtual BattleRecord applyWhenTurnOver()
         {
-            return record;
+            return new BattleRecord();
         }
 
         public virtual BattleRecord Apply() { return new BattleRecord(); }

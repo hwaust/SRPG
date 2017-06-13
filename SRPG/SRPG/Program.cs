@@ -1,5 +1,6 @@
 ﻿using SRPG.Effects;
 using SRPG.Effects.Buffs;
+using SRPG.Items.Equipments.Weapons;
 using SRPG.Items.Weapons;
 using System;
 using System.Collections.Generic;
@@ -20,39 +21,44 @@ namespace SRPG
 
 
             tom.Name = "Tom";
-            tom.Strength += 1;
-            tom.Equip(new Sword(), 0);
-
+			//  tom.Equip(new Sword(), 0);
+			tom.MaxHP = 200;
+			tom.HP = 200;
+			tom.Strength = 0;
+			tom.HitRate = 1;
             tom.Effects.Add(new HPRecover(tom, tom));
+			tom.Effects.Add(new AttackHPIncrease(tom, tom));
+			tom.Equip(new BlookSword(tom), 0);
 
-            jack.Name = "Jack";
-            jack.ParryRate = 0.55;
+			jack.Name = "Jack";
+			jack.MaxHP = 1000;
+			jack.HP = 1000;
+			tom.Strength = 50;
+            jack.ParryRate = 0;
+			jack.HitRate = 1;
 
 
             int round = 1;
-            while (true)
+            while (tom.HP != 0 && jack.HP != 0)
             {
                 Console.WriteLine(" ------------------- Round {0} ------------------- ", round++);
                 Show(tom, jack);
 
-                tom.Attack(jack).Show();
-
+				tom.Attack(jack).Show();
 
                 jack.Attack(tom).Show();
 
 
-                for (int i = dbf.Count - 1; i >= 0; i--)
-                {
-                    if (dbf[i].Expired())
-                        dbf.RemoveAt(i);
-                    else
-                        dbf[i].Apply();
-                }
 
+				tom.UpdateEffects();
+				jack.UpdateEffects();
+
+
+
+				 
                 Show(tom, jack);
-                if (tom.HP == 0 || jack.HP == 0)
-                    break;
-            }
+
+			}
         }
 
 

@@ -9,24 +9,23 @@ namespace SRPG.Effects.Buffs
 {
 	class HPRecover : Effect
 	{
-		public HPRecover(Unit sender, Unit target)
+
+		public HPRecover(Unit owner, Unit target)
 		{
-			From = sender;
-			To = target;
+			Owner = owner;
+			Target = target;
 			AffectedRounds = 5;
 		}
-		 
 
-		public override BattleRecord Apply()
+		public override BattleRecord applyWhenTurnOver()
 		{
-			To.HP += 2;
 			AffectedRounds -= 1;
 
-            BattleRecord msg = new BattleRecord(From, To, "");
+			Owner.HP += 2;
+			BattleRecord msg = new BattleRecord(Owner, Target, "#from# was healed by 2 HP");
+			
+			return msg;
+		}
 
-            Console.WriteLine(To.Name + " was healed by 2 HP");
-
-            return new BattleRecord(From, To, "#to# was healed by 2 HP");
-        }
 	}
 }
